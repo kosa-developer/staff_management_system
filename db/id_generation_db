@@ -1,0 +1,303 @@
+-- --------------------------------------------------------
+-- Host:                         127.0.0.1
+-- Server version:               10.2.14-MariaDB - mariadb.org binary distribution
+-- Server OS:                    Win64
+-- HeidiSQL Version:             9.4.0.5125
+-- --------------------------------------------------------
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET NAMES utf8 */;
+/*!50503 SET NAMES utf8mb4 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+
+
+-- Dumping database structure for id_generator
+CREATE DATABASE IF NOT EXISTS `id_generator` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `id_generator`;
+
+-- Dumping structure for table id_generator.account
+CREATE TABLE IF NOT EXISTS `account` (
+  `Account_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Staff_Id` int(11) NOT NULL,
+  `User_Name` varchar(50) NOT NULL,
+  `User_Type` varchar(50) NOT NULL,
+  `Password` varchar(50) NOT NULL,
+  `Status` int(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`Account_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+-- Dumping structure for table id_generator.child_protection_card
+CREATE TABLE IF NOT EXISTS `child_protection_card` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Child_Name` varchar(100) DEFAULT NULL,
+  `Year_Of_Birth` varchar(50) DEFAULT NULL,
+  `Next_Of_Kin` varchar(100) DEFAULT NULL,
+  `Gender` varchar(50) DEFAULT NULL,
+  `Religion` varchar(100) DEFAULT NULL,
+  `Tribe` varchar(100) DEFAULT NULL,
+  `Education` varchar(100) DEFAULT NULL,
+  `Village` varchar(100) DEFAULT NULL,
+  `Parish` varchar(100) DEFAULT NULL,
+  `Sub_County` varchar(100) DEFAULT NULL,
+  `District` varchar(100) DEFAULT NULL,
+  `Disability` varchar(100) DEFAULT NULL,
+  `Case_History` longtext DEFAULT NULL,
+  `Other_History` varchar(100) DEFAULT NULL,
+  `Status` int(11) DEFAULT 1,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+-- Dumping structure for table id_generator.child_protection_policy
+CREATE TABLE IF NOT EXISTS `child_protection_policy` (
+  `Policy_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Policy` longtext DEFAULT NULL,
+  PRIMARY KEY (`Policy_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+-- Dumping structure for table id_generator.districts
+CREATE TABLE IF NOT EXISTS `districts` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `District_Name` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+-- Dumping structure for table id_generator.hospital_ratings
+CREATE TABLE IF NOT EXISTS `hospital_ratings` (
+  `Rating_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Staff_Id` int(11) DEFAULT NULL,
+  `Rate` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Rating_Id`),
+  KEY `Staff_Id` (`Staff_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+-- Dumping structure for table id_generator.institution
+CREATE TABLE IF NOT EXISTS `institution` (
+  `Instiution_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Phone1` tinytext DEFAULT NULL,
+  `Hospital_Name` text DEFAULT NULL,
+  `Hospital_Motto` text DEFAULT NULL,
+  `Logo` varchar(50) DEFAULT NULL,
+  `Address` text DEFAULT NULL,
+  `Phone2` tinytext DEFAULT NULL,
+  `Diocese` text DEFAULT NULL,
+  `Email` text DEFAULT NULL,
+  PRIMARY KEY (`Instiution_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+-- Dumping structure for table id_generator.issuing_signature
+CREATE TABLE IF NOT EXISTS `issuing_signature` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Signature_Image` text DEFAULT NULL,
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+-- Dumping structure for table id_generator.logs
+CREATE TABLE IF NOT EXISTS `logs` (
+  `Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Log` text DEFAULT NULL,
+  `Time` timestamp NOT NULL DEFAULT current_timestamp(),
+  PRIMARY KEY (`Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=473 DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+-- Dumping structure for table id_generator.parishes
+CREATE TABLE IF NOT EXISTS `parishes` (
+  `ParishId` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `SubcountyId` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
+  `ParishName` varchar(60) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`ParishId`),
+  KEY `SubcountyId` (`SubcountyId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+-- Dumping structure for table id_generator.policy_answers
+CREATE TABLE IF NOT EXISTS `policy_answers` (
+  `Answer_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Question_Id` int(11) DEFAULT NULL,
+  `Answer` text DEFAULT NULL,
+  `Status` int(11) DEFAULT 1,
+  `Correct` int(11) DEFAULT 0,
+  PRIMARY KEY (`Answer_Id`),
+  KEY `Question_Id` (`Question_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=142 DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+-- Dumping structure for table id_generator.policy_codes
+CREATE TABLE IF NOT EXISTS `policy_codes` (
+  `Policy_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Code` text DEFAULT NULL,
+  `Email` text DEFAULT NULL,
+  `Status` int(11) DEFAULT 1,
+  `Staff_Id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Policy_Id`),
+  KEY `Staff_Id` (`Staff_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+-- Dumping structure for table id_generator.policy_questions
+CREATE TABLE IF NOT EXISTS `policy_questions` (
+  `Question_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Question` text DEFAULT NULL,
+  `Marks` int(11) DEFAULT NULL,
+  `Status` int(11) NOT NULL DEFAULT 1,
+  `Choice` int(11) DEFAULT 1,
+  PRIMARY KEY (`Question_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+-- Dumping structure for view id_generator.question_performance
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `question_performance` (
+	`Staff_Id` INT(11) NULL,
+	`Question_Id` INT(11) NULL,
+	`Correct_answer` BIGINT(21) NOT NULL,
+	`Marks` INT(11) NULL,
+	`Performance` BIGINT(31) NULL
+) ENGINE=MyISAM;
+
+-- Dumping structure for table id_generator.staff
+CREATE TABLE IF NOT EXISTS `staff` (
+  `Staff_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Status` int(11) NOT NULL DEFAULT 1,
+  `Title` varchar(50) DEFAULT NULL,
+  `Blood_Group` varchar(50) DEFAULT NULL,
+  `Code` double DEFAULT NULL,
+  `Time_submittes` datetime NOT NULL DEFAULT current_timestamp(),
+  `Enrollement_Date` text DEFAULT NULL,
+  `Image` text DEFAULT NULL,
+  `Staff_Name` varchar(50) DEFAULT NULL,
+  `Signature` text DEFAULT NULL,
+  PRIMARY KEY (`Staff_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+-- Dumping structure for table id_generator.staff_answer
+CREATE TABLE IF NOT EXISTS `staff_answer` (
+  `Staff_Answer_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Staff_Id` int(11) DEFAULT NULL,
+  `Question_Id` int(11) DEFAULT NULL,
+  `Answer_Id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Staff_Answer_Id`),
+  KEY `Staff_Id` (`Staff_Id`),
+  KEY `Question_Id` (`Question_Id`),
+  KEY `Answer_Id` (`Answer_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=441 DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+-- Dumping structure for view id_generator.staff_performance
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `staff_performance` (
+	`Staff_Id` INT(11) NULL,
+	`Staff_Name` VARCHAR(50) NULL COLLATE 'latin1_swedish_ci',
+	`Staff_Performance` DECIMAL(52,0) NULL
+) ENGINE=MyISAM;
+
+-- Dumping structure for table id_generator.staff_recommendation
+CREATE TABLE IF NOT EXISTS `staff_recommendation` (
+  `Recommendation_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Staff_Id` int(11) DEFAULT NULL,
+  `Recommendation` text DEFAULT NULL,
+  PRIMARY KEY (`Recommendation_Id`),
+  KEY `Staff_Id` (`Staff_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+-- Dumping structure for table id_generator.subcounty
+CREATE TABLE IF NOT EXISTS `subcounty` (
+  `SubcountyId` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `SubcountyName` varchar(60) CHARACTER SET utf8 DEFAULT NULL,
+  `District_Id` int(11) DEFAULT 51,
+  PRIMARY KEY (`SubcountyId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+-- Dumping structure for table id_generator.survey_answers
+CREATE TABLE IF NOT EXISTS `survey_answers` (
+  `Answer_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Question_Id` int(11) DEFAULT NULL,
+  `Staff_Id` int(11) DEFAULT NULL,
+  `Answer` text DEFAULT NULL,
+  `Comment` text DEFAULT NULL,
+  PRIMARY KEY (`Answer_Id`),
+  KEY `Question_Id` (`Question_Id`),
+  KEY `Staff_Id` (`Staff_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+-- Dumping structure for table id_generator.survey_codes
+CREATE TABLE IF NOT EXISTS `survey_codes` (
+  `Survey_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Code` text DEFAULT NULL,
+  `Email` text DEFAULT NULL,
+  `Status` int(11) DEFAULT 1,
+  `Staff_Id` int(11) DEFAULT NULL,
+  PRIMARY KEY (`Survey_Id`),
+  KEY `Staff_Id` (`Staff_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+-- Dumping structure for table id_generator.survey_questions
+CREATE TABLE IF NOT EXISTS `survey_questions` (
+  `Question_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Question` text DEFAULT NULL,
+  `Status` int(11) DEFAULT 1,
+  PRIMARY KEY (`Question_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+-- Dumping structure for table id_generator.system_email
+CREATE TABLE IF NOT EXISTS `system_email` (
+  `Email_Id` int(11) NOT NULL AUTO_INCREMENT,
+  `Email` text DEFAULT NULL,
+  `Password` text DEFAULT NULL,
+  `Status` int(11) DEFAULT 1,
+  `Type` varchar(50) DEFAULT 'Survey',
+  PRIMARY KEY (`Email_Id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+-- Dumping structure for view id_generator.total_correct_answer
+-- Creating temporary table to overcome VIEW dependency errors
+CREATE TABLE `total_correct_answer` (
+	`Question_Id` INT(11) NOT NULL,
+	`Marks` INT(11) NULL,
+	`Correct_Answers` BIGINT(21) NOT NULL,
+	`Total_Marks` BIGINT(31) NULL
+) ENGINE=MyISAM;
+
+-- Dumping structure for table id_generator.village
+CREATE TABLE IF NOT EXISTS `village` (
+  `VillageId` varchar(20) CHARACTER SET utf8 NOT NULL,
+  `ParishId` varchar(20) CHARACTER SET utf8 DEFAULT NULL,
+  `VillageName` varchar(60) CHARACTER SET utf8 DEFAULT NULL,
+  PRIMARY KEY (`VillageId`),
+  KEY `ParishId` (`ParishId`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- Data exporting was unselected.
+-- Dumping structure for view id_generator.question_performance
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `question_performance`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` VIEW `question_performance` AS select `staff_answer`.`Staff_Id` AS `Staff_Id`,`staff_answer`.`Question_Id` AS `Question_Id`,count(`staff_answer`.`Answer_Id`) AS `Correct_answer`,`policy_questions`.`Marks` AS `Marks`,(count(`staff_answer`.`Answer_Id`) * `policy_questions`.`Marks`) AS `Performance` from (((`staff` join `policy_questions`) join `policy_answers`) join `staff_answer`) where ((`staff_answer`.`Staff_Id` = `staff`.`Staff_Id`) and (`staff_answer`.`Answer_Id` = `policy_answers`.`Answer_Id`) and (`staff_answer`.`Question_Id` = `policy_questions`.`Question_Id`) and (`staff_answer`.`Question_Id` = `policy_answers`.`Question_Id`) and (`policy_answers`.`Correct` = 1)) group by `staff_answer`.`Question_Id`,`staff`.`Staff_Id` ;
+
+-- Dumping structure for view id_generator.staff_performance
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `staff_performance`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` VIEW `staff_performance` AS select `question_performance`.`Staff_Id` AS `Staff_Id`,`staff`.`Staff_Name` AS `Staff_Name`,sum(`question_performance`.`Performance`) AS `Staff_Performance` from (`staff` join `question_performance`) where (`question_performance`.`Staff_Id` = `staff`.`Staff_Id`) group by `staff`.`Staff_Id` ;
+
+-- Dumping structure for view id_generator.total_correct_answer
+-- Removing temporary table and create final VIEW structure
+DROP TABLE IF EXISTS `total_correct_answer`;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` VIEW `total_correct_answer` AS select `policy_questions`.`Question_Id` AS `Question_Id`,`policy_questions`.`Marks` AS `Marks`,count(`policy_answers`.`Answer_Id`) AS `Correct_Answers`,(count(`policy_answers`.`Answer_Id`) * `policy_questions`.`Marks`) AS `Total_Marks` from (`policy_questions` join `policy_answers`) where ((`policy_questions`.`Question_Id` = `policy_answers`.`Question_Id`) and (`policy_answers`.`Correct` = 1)) group by `policy_answers`.`Question_Id` ;
+
+/*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
+/*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
